@@ -10,8 +10,7 @@ class Contact:
 
     def show(self):
         """Shows details."""
-        print("Name = {}, Email Address = {}, Phone number = {}".format(self.name,
-                                                                        self.email_address, self.phone_number))
+        print(f'Name = {self.name}, Email Address = {self.email_address}, Phone number = {self.phone_number}'
 
 
 class AddressBook:
