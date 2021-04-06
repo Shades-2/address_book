@@ -1,7 +1,8 @@
 import pickle
+from pathlib import Path
 
-# Can we always save in project root
-contactsfile = 'contacts.data'
+contactsfile = Path('.')
+
 
 class Contact:
     def __init__(self, name, email_address, phone_number):
@@ -11,7 +12,8 @@ class Contact:
 
     def show(self):
         """Shows details."""
-        print(f'Name = {self.name}, Email Address = {self.email_address}, Phone number = {self.phone_number}')
+        print(
+            f'Name = {self.name}, Email Address = {self.email_address}, Phone number = {self.phone_number}')
 
 
 class AddressBook:
@@ -69,4 +71,3 @@ class AddressBook:
 jamie = Contact("Jamie", "jamie@hotmail.com", "01273")
 ab = AddressBook()
 ab.add_contact("Jamie", jamie)
-
