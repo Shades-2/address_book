@@ -1,7 +1,8 @@
 import pickle
 from pathlib import Path
+import json
 
-contactsfile = Path('.')
+contactsfile = Path('contacts.json')
 
 
 class Contact:
@@ -18,22 +19,19 @@ class Contact:
 
 class AddressBook:
     def __init__(self):
-        # should be private self._contracts encapsulation of data.
-        self.contacts = {}
+        self._contacts = {}
 
     def add_contact(self, contact, object):
         """add contact to address book, contact is the key you will use to find the contact and
          the value is the contact object"""
-        self.contacts[contact] = object
+        self._contacts[contact] = vars(object)
 
         # Name of the file that will store the address book object
         # Write to the file
-        f = open(contactsfile, 'wb')
-        # Dump to the file
+        with open(contactsfile, 'w') as f:
+            # Dump to the file
+            json.dump(self._contacts, f)
 
-        # Can we save just the data. Preferable in json format (use json lib ie import json)??
-        pickle.dump(self.contacts, f)
-        f.close()
         print("Added Contact", contact)
 
     def remove_contact(self, contact):
@@ -45,8 +43,7 @@ class AddressBook:
             # Write to the file
             f = open(contactsfile, 'wb')
             # Dump to the file
-            pickle.dump(self.contacts, f)
-            f.close()
+            pass
             print("Removed Contact", contact)
 
         else:
