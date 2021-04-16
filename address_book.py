@@ -1,6 +1,5 @@
 from pathlib import Path
 import json
-# change to being able to take an arguement so the file can be whatever.
 
 
 class Contact:
@@ -18,21 +17,23 @@ class Contact:
 class AddressBook:
     '''Write a name for your file as the argument for the AddressBook you are instantiating. 
        This will be the file where the contacts are saved. .json will be added to the filename automatically.'''
+    # dont need to duplicate name
 
     def __init__(self, contactsfile):
-        self.contactsfile = contactsfile + '.json'
-        # if the path to contactsfile.json exists then need to iterate through the json file and load the data into _contacts
-        # else self.contacts = {}
+        # This is where the data will be saved
+        self.contactsfile = contactsfile
         self._contacts = {}
-        if Path(self.contactsfile).exists:
-            with open('contacts.json') as f:
+        # if the file already exists, load the data in into the _contacts dict by iterating through the file
+        if Path(self.contactsfile).exists == True:
+            with open(self.contactsfile) as f:
                 data = json.load(f)
 
-            for person in data:
-                self._contacts = data
+            for name, details in data.items():
+                self._contacts[name] = Contact(
+                    name, details['email_address'], details['phone_number'])
 
-        else:
-            self._contacts = {}
+        elif Path(self.contactsfile).exists == False:
+            open(self.contactsfile)
 
     def add_contact(self, contact, object):
         """add contact to address book, contact is the key you will use to find the contact and
@@ -43,7 +44,7 @@ class AddressBook:
         # Write to the file
         with open(self.contactsfile, 'w') as f:
             # Dump to the file
-            json.dump(self._contacts, f)
+            json.dump(self._contacts, f, indent=2)
 
         print("Added Contact", contact)
 
@@ -62,19 +63,15 @@ class AddressBook:
         else:
             print("Could not delete contact, contact does not exist.")
 
-    # def search_contact(self, contact):
-        # """searches the dictionary for the key passed in as an arg and returns the Contact object's detail's"""
-        # if contact in self._contacts:
-            # print(self._contacts.get(contact).show())
+    def search_contact(self, contact):
+        """searches the dictionary for the key passed in as an arg and returns the Contact object's detail's"""
+        if contact in self._contacts:
+            print(self._contacts.get(contact))
 
-        # else:
-            #print("Contact not found.")
+        else:
+            print("Contact not found.")
 
-    # def list_contacts(self):
-        # """Lists all contacts using a for in loop"""
-        # for ls in self._contacts.keys():
-            # print(ls)
-
-
-# if __name__ == '__main__':
-# Or put in function .. def test_adress_book():
+    def list_contacts(self):
+        """Lists all contacts using a for in loop"""
+        for ls in self._contacts.keys():
+            print(ls)
