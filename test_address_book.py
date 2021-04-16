@@ -6,11 +6,11 @@ from pathlib import Path
 class TestAddressBook(unittest.TestCase):
     def setUp(self):
         self.john = address_book.Contact("John", "email.address", "123")
-        self.ab = address_book.AddressBook('contacts')
+        self.ab = address_book.AddressBook('contact.json')
         self.ab.add_contact('John', self.john)
 
     def tearDown(self):
-        Path('contacts.json').unlink
+        Path(self.ab.contactsfile).unlink()
 
     def test_show(self):
         self.assertEqual(self.john.name, "John")
@@ -27,12 +27,13 @@ class TestAddressBook(unittest.TestCase):
     def test_the_contactsfile(self):
         assert Path(self.ab.contactsfile).exists
         assert (self.ab._contacts) == (self.ab._contacts)
-        
-    # def test_search_contact(self):
-        # print(self.ab._contacts.get('John').show())
 
-    # def test_list_contacts(self):
-        # pass
+    def test_search_contact(self):
+        self.assertEqual(self.ab._contacts.get('John'), {
+                         'name': 'John', 'email_address': 'email.address', 'phone_number': '123'})
+
+    def test_list_contacts(self):
+        self.ab.list_contacts() == ('John')
 
 
 if __name__ == '__main__':
