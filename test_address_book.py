@@ -29,7 +29,7 @@ class TestAddressBook(unittest.TestCase):
     def test_save(self):
         self.ab.save
         assert Path(self.ab.contacts_file).exists
-        
+        Path('contact.json').unlink
 
 
 class TestContact(unittest.TestCase):
