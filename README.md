@@ -13,6 +13,4 @@ The skills I developed in this project were:
   - Test driven development using unittest module
   - Understanding code repositories
   - having experience using Github/git
-  - Understanding HTTP protocol which I learnt about though the python
-    requests library
   -Learning about JSON as when my address book objects are saved to disk they are saved in JSON format
