@@ -21,7 +21,7 @@ class TestAddressBook(unittest.TestCase):
 
     def test_search_contact(self):
         self.assertEqual(self.ab._contacts.get('John'), {
-                         'name': 'John', 'email_address': 'email.address', 'phone_number': '123'})
+                         'email_address': 'email.address', 'phone_number': '123'})
 
     def test_list_contacts(self):
         self.ab.list_contacts() == ('John')
